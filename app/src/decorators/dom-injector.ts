@@ -3,9 +3,19 @@ export function domInjector(seletor: string){
             target: any,
             propertyKey: string
         ){
+
+        let elemento: HTMLElement;    
         const getter = function(){
-            const elemento = document.querySelector(seletor);
+            if(!elemento){
+                elemento = <HTMLElement>document.querySelector(seletor);
+            }
             return elemento;
         }
+
+        Object.defineProperty(
+            target,
+            propertyKey, 
+            {get: getter}
+        )
     }
 }
